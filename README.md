@@ -1,6 +1,6 @@
 # Samurai-Showdown-Anthology
 
-psp Samurai Showdown Anthology textures
+psp Samurai Showdown Anthology 4HDcubeplus
 
 Images = https://imgsli.com/NDAwMDE3
 
