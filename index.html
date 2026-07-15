@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samurai Shodown Anthology HD - Comparison Hub</title>
+    
+    <script defer src="https://unpkg.com/img-comparison-slider@7/dist/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/img-comparison-slider@7/dist/styles.css" />
+
+    <style>
+        :root {
+            --samurai-red: #9e1b1b;
+            --samurai-gold: #d4af37;
+            --ink-black: #0c0d12;
+            --parchment: #f4f1ea;
+            --card-bg: #14151c;
+            --text-gray: #6b7280;
+        }
+
+        body { 
+            font-family: 'Georgia', serif; 
+            background-color: var(--ink-black); 
+            color: #e5e7eb; 
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Fundo com degradê que imita uma névoa escura e sombria de combate */
+            background-image: radial-gradient(circle at center, #220e10 0%, #0c0d12 100%);
+        }
+
+        .container { max-width: 1100px; width: 100%; text-align: center; }
+
+        header { 
+            padding: 40px 0; 
+            margin-bottom: 25px; 
+            border-bottom: 3px solid var(--samurai-red);
+            box-shadow: 0 10px 30px rgba(158, 27, 27, 0.3);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: var(--samurai-gold);
+        }
+        
+        h1 { 
+            color: var(--parchment); 
+            margin: 0; 
+            font-size: 2.5rem; 
+            text-transform: uppercase; 
+            letter-spacing: 4px;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .category-menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-cat {
+            background: rgba(20, 21, 28, 0.8);
+            border: 2px solid var(--samurai-red);
+            color: var(--parchment);
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 0px; /* Sem arredondamento - rústico como uma lâmina */
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        .btn-cat.active {
+            border-color: var(--samurai-gold);
+            background: var(--samurai-red);
+            color: var(--parchment);
+            box-shadow: 0 0 15px rgba(158, 27, 27, 0.6);
+        }
+
+        .image-selector {
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-img {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--samurai-red);
+            background: #181922;
+            color: var(--parchment);
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            font-size: 1rem;
+            /* Corte estilo "Zandatsu" (Corte de Katana diagonal superior) */
+            clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+        }
+
+        .btn-img.active {
+            background: var(--samurai-gold);
+            border-color: var(--samurai-gold);
+            color: var(--ink-black);
+            transform: scale(1.15) translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .comparison-area {
+            background: var(--card-bg);
+            padding: 8px;
+            border: 1px solid #1f212a;
+            box-shadow: 0 0 50px rgba(0,0,0,0.95);
+        }
+
+        img-comparison-slider {
+            width: 100%;
+            --divider-color: var(--samurai-red);
+            --default-handle-color: var(--samurai-red);
+        }
+
+        img-comparison-slider img {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        .label-box {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            font-weight: bold;
+            color: var(--samurai-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            font-family: sans-serif;
+        }
+
+        footer { 
+            margin-top: 60px; 
+            color: var(--text-gray); 
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            border-top: 1px solid #1f212a;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Samurai Shodown Anthology HD</h1>
+            <p style="color: var(--samurai-gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 4px; font-weight: bold;">魂 - Comparison Hub - 魂</p>
+        </header>
+
+        <div class="category-menu">
+            <button class="btn-cat active" onclick="setCategory('psp_vs_hd', this)">PSP 4x vs HD Standard</button>
+            <button class="btn-cat" onclick="setCategory('hd_vs_vivid', this)">HD Standard vs Vivid Profile</button>
+        </div>
+
+        <div class="image-selector" id="imgSelector"></div>
+
+        <div class="comparison-area">
+            <div class="label-box">
+                <span id="label-left">Original</span>
+                <span id="label-right">HD</span>
+            </div>
+            
+            <img-comparison-slider id="slider">
+                <img slot="first" id="img-before" src="" />
+                <img slot="second" id="img-after" src="" />
+            </img-comparison-slider>
+        </div>
+
+        <footer>
+            PROJETO DESENVOLVIDO POR MESKH4H4 | SAMURAI SHODOWN HD 2026
+        </footer>
+    </div>
+
+    <script>
+        // Altere o nome final para bater com o repositório correto no seu GitHub
+        const baseUrl = "https://meskh4h4.github.io/Samurai-Showdown-Anthology/comparacoes";
+        
+        let currentCategory = 'psp_vs_hd';
+        let currentIndex = 0;
+
+        const configs = {
+            'psp_vs_hd': {
+                leftDir: 'PSP/psp',      // Pasta PSP / psp-0.png
+                rightDir: 'HD/hd',       // Pasta HD / hd-0.png
+                labelL: 'PSP Emulador 4x',
+                labelR: 'HD Texture Pack'
+            },
+            'hd_vs_vivid': {
+                leftDir: 'HD/hd',
+                rightDir: 'VIVID/vivid',  // Pasta VIVID / vivid-0.png
+                labelL: 'HD Padrão',
+                labelR: 'Vivid Enhanced (Color Profile)'
+            }
+        };
+
+        function initSelector() {
+            const selector = document.getElementById('imgSelector');
+            selector.innerHTML = ''; 
+            // 6 imagens no total: vai de 0 até 5
+            for (let i = 0; i <= 5; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.className = 'btn-img' + (i === currentIndex ? ' active' : '');
+                btn.onclick = () => setIndex(i, btn);
+                selector.appendChild(btn);
+            }
+        }
+
+        function setCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateImages();
+        }
+
+        function setIndex(idx, btn) {
+            currentIndex = idx;
+            document.querySelectorAll('.btn-img').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            updateImages();
+        }
+
+        function updateImages() {
+            const config = configs[currentCategory];
+            const imgBefore = document.getElementById('img-before');
+            const imgAfter = document.getElementById('img-after');
+            
+            const cacheBuster = `?t=${new Date().getTime()}`;
+            
+            const newSrcBefore = `${baseUrl}/${config.leftDir}-${currentIndex}.png${cacheBuster}`;
+            const newSrcAfter = `${baseUrl}/${config.rightDir}-${currentIndex}.png${cacheBuster}`;
+
+            imgBefore.src = newSrcBefore;
+            imgAfter.src = newSrcAfter;
+
+            document.getElementById('label-left').innerText = config.labelL;
+            document.getElementById('label-right').innerText = config.labelR;
+        }
+
+        initSelector();
+        updateImages();
+    </script>
+</body>
+</html>
